@@ -1,0 +1,38 @@
+import java.util.*;
+class Solution {
+    public int solution(int[] queue1, int[] queue2) {
+        int answer = 0;
+        Queue<Integer> Q1 = new LinkedList<>();
+        Queue<Integer> Q2 = new LinkedList<>();
+        long sum1=0, sum2=0;
+        int max = Integer.MIN_VALUE;
+        for(int x : queue1){
+            Q1.offer(x);
+            sum1+=x;
+            max=Math.max(max,x);
+        }
+        for(int x : queue2){
+            Q2.offer(x);
+            sum2+=x;
+            max=Math.max(max,x);
+        }
+        long limit=(sum1+sum2)/2;
+        if(max>limit || (sum1+sum2)%2==1)return -1;
+        int cnt=0;
+        while(sum1 != sum2){
+           if(sum1 > sum2){
+                sum2+=Q1.peek();
+                sum1-=Q1.peek();
+                Q2.offer(Q1.poll());
+          
+            }else{
+                sum1+=Q2.peek();
+                sum2-=Q2.peek();
+                Q1.offer(Q2.poll());
+            }
+            cnt++;
+             if(cnt > (queue1.length + queue2.length) * 2) return -1;
+        }
+        return cnt;
+    }
+}
