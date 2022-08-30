@@ -1,0 +1,40 @@
+import java.util.*;
+class Solution {
+    static class Point{
+        int x,y,cost;
+        Point(int x, int y, int cost){
+            this.x=x;
+            this.y=y;
+            this.cost=cost;
+        }
+    }
+    boolean[][] visit;
+    int[] dx = {-1,1,0,0};
+    int[] dy = {0,0,-1,1};
+    public int solution(int[][] maps) {
+        int answer = 0;
+        visit=new boolean[maps.length][maps[0].length];
+        answer = BFS(0,0, maps);
+        return answer;
+    }
+    int BFS(int x, int y, int[][] map){
+        Queue<Point> Q = new LinkedList<>();
+
+        Q.offer(new Point(x,y,1));
+        while(!Q.isEmpty()){
+            Point tmp = Q.poll();
+            for(int i=0;i<4;i++){
+                int nx=tmp.x+dx[i];
+                int ny=tmp.y+dy[i];
+                if(nx==visit[0].length-1 && ny==visit.length-1)return tmp.cost+1;
+                if(nx>=0 && ny >=0&& nx <visit[0].length && ny <visit.length ){
+                    if(visit[ny][nx]==false && map[ny][nx]==1){
+                        visit[ny][nx]=true;
+                        Q.offer(new Point(nx,ny,tmp.cost+1));
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+}
