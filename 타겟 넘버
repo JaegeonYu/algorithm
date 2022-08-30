@@ -1,0 +1,15 @@
+class Solution {
+    int answer = 0;
+    public int solution(int[] numbers, int target) {
+        DFS(numbers, 0, target, 0);
+        return answer;
+    }
+    void DFS(int[] numbers, int x, int target, int L){
+        if(L==numbers.length){
+            if(x==target)answer++;
+        }else{
+            DFS(numbers, x+numbers[L],target, L+1);
+            DFS(numbers, x-numbers[L],target, L+1);
+        }
+    }
+}
