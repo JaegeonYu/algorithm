@@ -1,0 +1,29 @@
+class Solution {
+    int answer =0;
+    boolean[] visit;
+    public int solution(String begin, String target, String[] words) {
+        visit=new boolean[words.length];
+        DFS(begin, target, words,0);
+        return answer;
+    }
+    void DFS(String begin, String target, String[] words, int L){
+        if(L>words.length)return;
+        if(begin.equals(target)){
+            answer=L;
+        }else{
+            for(int i=0;i<words.length;i++){
+                if(!visit[i]){
+                    int cnt=0;
+                    for(int j=0;j<words[i].length();j++){
+                        if(begin.charAt(j)==words[i].charAt(j))cnt++;
+                    }
+                    if(words[i].length()-1==cnt){
+                        visit[i]=true;
+                        DFS(words[i],target,words,L+1);
+                        visit[i]=false;
+                    }
+                }
+            }
+        }
+    }
+}
