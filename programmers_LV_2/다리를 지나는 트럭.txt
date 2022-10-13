@@ -1,0 +1,31 @@
+import java.util.*;
+class Solution {
+    public int solution(int bridge_length, int weight, int[] truck_weights) {
+        int answer = 0;
+        int sum = 0 ;
+        Queue<Integer> Q = new LinkedList<>();
+        for(int tmp : truck_weights){
+           while(true){
+               if(Q.isEmpty()){
+                   Q.offer(tmp);
+                   sum += tmp;
+                   answer++;
+                   break;
+               }else if(Q.size()==bridge_length){
+                   sum -= Q.poll();
+               }else{
+                   if(sum + tmp <= weight){
+                       Q.offer(tmp);
+                       sum += tmp;
+                       answer++;
+                       break;
+                   }else{
+                       Q.offer(0);
+                       answer++;
+                   }
+               }
+           }
+        }
+        return answer+bridge_length;
+    }
+}

@@ -1,0 +1,26 @@
+import java.util.*;
+class Solution {
+    public int solution(int[] priorities, int location) {
+        int answer = 1;
+        Queue<int[]> Q = new LinkedList<>();
+        for(int i=0;i<priorities.length;i++){
+            Q.offer(new int[]{i, priorities[i]});
+        }
+
+        while(!Q.isEmpty()){
+            int[] tmp = Q.poll();
+            for(int[] arr : Q){
+                if(tmp[1]<arr[1]){
+                    Q.offer(tmp);
+                    tmp = null;
+                    break;
+                }
+            }
+            if(tmp != null){
+                if(tmp[0]==location)return answer;
+                else answer++;
+            }
+        }
+        return answer;
+    }
+}
