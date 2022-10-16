@@ -1,0 +1,19 @@
+import java.util.*;
+class Solution {
+    public int solution(String[] babbling) {
+        int answer = 0;
+        String[] can = {"aya","ye","woo","ma"};
+        String[] cant = {"ayaaya","yeye","woowoo","mama"};
+        for(String babble : babbling){
+            String temp = babble;
+            for(String tmpCant : cant){
+                temp = temp.replace(tmpCant,"1");
+            }
+            for(String tmpCan : can){
+                temp = temp.replace(tmpCan, "");
+            }
+            if(temp.length()==0)answer++;
+        }
+        return answer;
+    }
+}
