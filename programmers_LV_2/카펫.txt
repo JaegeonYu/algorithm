@@ -1,0 +1,14 @@
+class Solution {
+    public int[] solution(int brown, int yellow) {
+        int[] answer = new int[2];
+        for(int i=1;i<brown;i++){
+            for(int j=1;j<brown;j++){
+                if(brown==(j*2)+(i-2)*2&&yellow==(j-2)*(i-2)){
+                    answer[0]=i;
+                    answer[1]=j;
+                }
+            }
+        }
+        return answer;
+    }
+}

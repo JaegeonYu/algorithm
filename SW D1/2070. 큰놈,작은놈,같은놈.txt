@@ -1,0 +1,28 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Solution {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int n = Integer.parseInt(bf.readLine());
+		int[][] arr = new int[n][2];
+		char[] calculate = new char[n];
+		for(int i=0;i<n;i++) {
+			String[] tmp = bf.readLine().split(" ");
+			
+				arr[i][0]=Integer.parseInt(tmp[0]);
+				arr[i][1]=Integer.parseInt(tmp[1]);
+				if(arr[i][0]<arr[i][1]) {
+					calculate[i]='<';
+				}else if(arr[i][0]>arr[i][1]) {
+					calculate[i]='>';
+				}else calculate[i]='=';
+			
+		}
+		for(int i=0;i<n;i++) {
+			System.out.println("#"+(i+1)+" "+ calculate[i]);
+		}
+	}
+}

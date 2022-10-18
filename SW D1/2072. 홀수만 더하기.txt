@@ -1,0 +1,23 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Solution {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int n = Integer.parseInt(bf.readLine());
+		int[][] arr = new int[n][10];
+		int[] calculate = new int[n];
+		for(int i=0;i<n;i++) {
+			String[] tmp = bf.readLine().split(" ");
+			for(int j=0;j<10;j++) {
+				arr[i][j]=Integer.parseInt(tmp[j]);
+				if(arr[i][j]%2==1)calculate[i]+=arr[i][j];
+			}
+		}
+		for(int i=0;i<n;i++) {
+			System.out.println("#"+(i+1)+" "+ calculate[i]);
+		}
+	}
+}
