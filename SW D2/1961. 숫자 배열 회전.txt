@@ -1,0 +1,52 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Solution {
+	
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		int[] days = {0, 31,28,31,30,31,30,31,31,30,31,30,31};
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+			int n = Integer.parseInt(st.nextToken());
+			int[][] arr = new int[n][n];
+			for(int i=0;i<n;i++) {
+				st = new StringTokenizer(bf.readLine());
+				for(int j=0;j<n;j++) {
+					arr[i][j]=Integer.parseInt(st.nextToken());
+				}
+			}
+			int[][] rotate90 = rotate(arr);
+			int[][] rotate180 = rotate(rotate90);
+			int[][] rotate270 = rotate(rotate180);
+			System.out.println("#"+T);
+			for(int i=0;i<arr.length;i++) {
+				for(int j=0;j<arr.length;j++) {
+					System.out.print(rotate90[i][j]);
+				}
+				System.out.print(" ");
+				for(int j=0;j<arr.length;j++) {
+					System.out.print(rotate180[i][j]);
+				}
+				System.out.print(" ");
+				for(int j=0;j<arr.length;j++) {
+					System.out.print(rotate270[i][j]);
+				}
+				System.out.println();
+			}
+		}
+	}
+	static int[][] rotate(int[][] arr){
+		int[][] newArr = new int[arr.length][arr.length];
+		for(int i=0;i<arr.length;i++) {
+			for(int j=0;j<arr.length;j++) {
+				newArr[i][j]=arr[arr.length-j-1][i];
+			}
+		}
+		return newArr;
+	}
+}

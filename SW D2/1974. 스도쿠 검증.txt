@@ -1,0 +1,62 @@
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Solution {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		for(int i=1;i<=TC;i++) {
+			StringTokenizer st;
+			int[][] arr = new int[9][9];
+			for(int j=0;j<9;j++) {
+				st = new StringTokenizer(bf.readLine());
+				for(int k=0;k<9;k++) {
+					arr[j][k]=Integer.parseInt(st.nextToken());
+				}
+			}
+			int answer = 1;
+			//가로
+			
+			for(int j=0;j<9;j++) {
+				int[] check = new int[10];
+				for(int k=0;k<9;k++) {
+					check[arr[j][k]]++;
+				}
+				for(int m=1;m<10;m++) {
+					if(check[m]>1)answer=0;
+				}
+			}
+			if(answer==1) {
+				for(int j=0;j<9;j++) {
+					int[] check = new int[10];
+					for(int k=0;k<9;k++) {
+						check[arr[k][j]]++;
+					}
+					for(int m=1;m<10;m++) {
+						if(check[m]>1)answer=0;
+					}
+				}
+			}
+			if(answer==1) {
+				for(int j=0;j<9;j+=3) {
+					for(int k=0;k<9;k+=3) {
+						int[] check = new int[10];
+						for(int a=0;a<3;a++) {
+							for(int b=0;b<3;b++) {
+								check[arr[a+j][b+k]]++;
+							}
+						}
+						for(int m=1;m<10;m++) {
+							if(check[m]>1)answer=0;
+						}
+					}
+				}
+			}
+			System.out.println("#"+i+" "+answer);
+		}
+	}
+}

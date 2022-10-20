@@ -1,0 +1,32 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Solution {
+	
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		int[] days = {0, 31,28,31,30,31,30,31,31,30,31,30,31};
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+			int mon1 = Integer.parseInt(st.nextToken());
+			int day1 = Integer.parseInt(st.nextToken());
+			int mon2 = Integer.parseInt(st.nextToken());
+			int day2 = Integer.parseInt(st.nextToken());
+			int answer = 0;
+			if(mon1==mon2)answer=day2-day1+1;
+			else {
+				answer+=day2;
+				answer+=(days[mon1]-day1);
+				for(int i=mon1+1;i<mon2;i++) {
+					answer+=days[i];
+				}
+				answer++;
+			}
+			System.out.println("#"+T+" "+answer);
+		}
+	}
+}

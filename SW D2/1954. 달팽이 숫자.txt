@@ -1,0 +1,43 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Solution {
+	
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		int[] money = {50000, 10000, 5000, 1000, 500, 100, 50, 10};
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+			int n = Integer.parseInt(st.nextToken());
+			int[][] arr = new int[n][n];
+			int x = 0, y=0;
+			int num = 1;
+			int[] dx = {1,0,-1,0};
+			int[] dy = {0,1,0,-1};
+			int vec = 0;
+			while(num<=n*n) {
+				arr[y][x]=num++;
+				x += dx[vec];
+				y += dy[vec];
+				if(x > n-1 || x<0 || y>n-1 || y <0 || arr[y][x]!=0) {
+					x -= dx[vec];
+					y -= dy[vec];
+					vec = (vec+1)%4;
+					x += dx[vec];
+					y += dy[vec];
+				}
+			}
+			System.out.println("#"+T);
+			for(int i=0;i<n;i++) {
+				for(int j=0;j<n;j++) {
+					System.out.print(arr[i][j]+" ");
+				}
+				System.out.println();
+			}
+		}
+	}
+}
