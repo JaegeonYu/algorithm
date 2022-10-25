@@ -1,0 +1,26 @@
+import java.util.*;
+class Solution {
+    boolean[] visit;
+    List<String> list = new ArrayList<>();
+    public String[] solution(String[][] tickets) {
+       
+        visit = new boolean[tickets.length];
+        DFS("ICN","ICN",tickets,0);
+        Collections.sort(list);
+        String[] answer =list.get(0).split(" ");
+        return answer;
+    }
+    void DFS(String road,String allRoute ,String[][] tickets,int L){
+        if(L==tickets.length){
+            list.add(allRoute);
+        }else{
+            for(int i=0;i<tickets.length;i++){
+                if(tickets[i][0].equals(road) && !visit[i]){
+                    visit[i]=true;
+                    DFS(tickets[i][1],allRoute+" "+tickets[i][1],tickets,L+1);
+                    visit[i]=false;
+                }
+            } 
+        }
+    }
+}

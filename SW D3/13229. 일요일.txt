@@ -1,0 +1,25 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Solution {
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		String[] arr = {"MON","TUE","WED","THU","FRI","SAT","SUN"};
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+			String today = st.nextToken();
+			int cnt = 1;
+			for(int i=0;i<arr.length;i++) {
+				if(arr[i].equals(today))break;
+				else cnt++;
+			}
+			int answer = 0;
+			if(cnt == 7)answer= 7;
+			else answer = 7-cnt;
+			System.out.println("#"+T+" "+answer);
+			}
+		}
+}

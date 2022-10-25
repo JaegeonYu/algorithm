@@ -1,0 +1,63 @@
+import java.util.*;
+class Solution {
+    List<Rect> list = new ArrayList<>();
+    public int solution(int[][] rectangle, int characterX, int characterY, int itemX, int itemY) {
+        int answer = 0;
+        
+        int[][] map = new int[102][102];
+        for(int i=0;i<rectangle.length;i++){
+            int x1 = rectangle[i][0]*2;
+            int y1 = rectangle[i][1]*2;
+            int x2 = rectangle[i][2]*2;
+            int y2 = rectangle[i][3]*2;
+            for(int j=y1;j<=y2;j++){
+                for(int k=x1;k<=x2;k++){
+                    map[j][k]=-1;
+                }
+            }
+            list.add(new Rect(x1, x2, y1, y2));
+        }
+        answer =BFS(characterX*2, characterY*2, itemX*2, itemY*2, map);
+        return answer;
+    }
+    int BFS(int cx, int cy, int ix, int iy, int[][] map){
+        Queue<int[]> Q = new LinkedList<>();
+        Q.offer(new int[]{cx, cy,1});
+        int[] dx = {1,0,0,-1};
+        int[] dy = {0,-1,1,0};
+        while(!Q.isEmpty()){
+            int[] tmp = Q.poll();
+            for(int i=0;i<4;i++){
+                int nx = tmp[0]+dx[i];
+                int ny = tmp[1]+dy[i];
+                if(nx == ix && ny == iy)return tmp[2]/2;
+                if(nx >=0 &&nx < 102 && ny >=0 && ny < 102){
+                    if(isIn(nx,ny) && map[ny][nx]<0){
+                        map[ny][nx]=tmp[2]+1;
+                        Q.offer(new int[]{nx, ny, tmp[2]+1});
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+    boolean isIn(int x, int y){
+        int answer = 0;
+        for(Rect r : list){
+            if(r.sx < x && r.sy < y && r.ex > x && r.ey > y)return false;
+        }
+       return true;
+    }
+}
+class Rect{
+    int sx;
+    int sy;
+    int ex;
+    int ey;
+    public Rect(int x1, int x2, int y1, int y2){
+        this.sx = x1;
+        this.ex = x2;
+        this.sy = y1;
+        this.ey = y2;
+    };  
+}

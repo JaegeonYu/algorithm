@@ -1,0 +1,22 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Solution {
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+	
+			int N = Integer.parseInt(st.nextToken());
+			String answer;
+			if(N%2==0) {
+				answer = "Alice";
+			}else answer = "Bob";
+			
+			System.out.println("#"+T+" "+answer);
+			}
+		}
+}

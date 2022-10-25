@@ -1,0 +1,32 @@
+ import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Solution {
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+			int n = Integer.parseInt(st.nextToken());
+			int speed = 0;
+			int move = 0;
+			for(int i=0;i<n;i++) {
+				st = new StringTokenizer(bf.readLine());
+				int type = Integer.parseInt(st.nextToken());
+				if(type == 1 || type == 2) {
+					int tmpSpeed = Integer.parseInt(st.nextToken());
+					if(type == 1) {
+						speed += tmpSpeed;
+					}else if(type ==2 ) {
+						speed -= tmpSpeed;
+						if(speed<0)speed = 0;
+					}
+				}
+				move += speed;
+			}
+				System.out.println("#"+T+" "+move);
+			}
+		}
+}

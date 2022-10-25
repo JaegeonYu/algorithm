@@ -1,0 +1,28 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Pro14555 {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+			String tmp = st.nextToken();
+			char ch[] = tmp.toCharArray();
+			char temp = ch[0];
+			int answer = 0;
+			for(int i=1;i<ch.length;i++) {
+				String str = Character.toString(temp)+Character.toString(ch[i]);
+				if(str.equals("(|") || str.equals("|)"))answer++;
+				else if(str.equals("()"))answer++;
+				temp=ch[i];
+			}
+			System.out.printf("#%d %d\n",T,answer);
+		}
+
+	}
+
+}
