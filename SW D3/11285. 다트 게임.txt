@@ -1,0 +1,31 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Pro11285 {
+
+	public static void main(String[] args) throws Exception, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+			int N = Integer.parseInt(st.nextToken());
+			double[] board = {20,40,60,80,100,120,140,160,180,200};
+			int sum =0;
+			for(int i=0;i<N;i++) {
+				st = new StringTokenizer(bf.readLine());
+				double x = Math.abs(Double.parseDouble(st.nextToken()));
+				double y = Math.abs(Double.parseDouble(st.nextToken()));
+				double dis =  Math.sqrt(Math.pow(x, 2)+Math.pow(y, 2));
+				for(int j=0;j<10;j++) {
+					if(dis<=board[j]) {
+						sum+=(10-j);
+						break;
+					}
+				}
+			}
+			System.out.printf("#%d %d\n",T,sum);
+		}
+	}
+}

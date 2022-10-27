@@ -1,0 +1,33 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Pro10580 {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+			int N = Integer.parseInt(st.nextToken());
+			int[][] arr = new int[N][2];
+			for(int i=0;i<N;i++) {
+				st = new StringTokenizer(bf.readLine());
+				int x = Integer.parseInt(st.nextToken());
+				int y = Integer.parseInt(st.nextToken());
+				arr[i][0]=x;
+				arr[i][1]=y;
+			}
+			int count = 0;
+			for(int i=0;i<N;i++) {
+				for(int j=0;j<N;j++) {
+					if(i==j)continue;
+					if(arr[i][0]<arr[j][1]&&arr[i][1]>arr[j][1])count++;
+					else if(arr[i][0]>arr[j][0]&&arr[i][1]<arr[j][1])count++;
+				}
+			}
+			System.out.printf("#%d %d\n",T,count/2);
+		}
+	}
+}

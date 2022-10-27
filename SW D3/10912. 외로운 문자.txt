@@ -1,0 +1,39 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.StringTokenizer;
+
+public class Pro10912 {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+			char[] ch = st.nextToken().toCharArray();
+			List<Character> list = new ArrayList<>();
+			List<Character> answer = new ArrayList<>();
+
+			for(int i=0;i<ch.length;i++)list.add(ch[i]);
+			while(!list.isEmpty()) {
+				char tmp = list.get(0);
+				list.remove(0);
+				if(list.contains(tmp)) {
+					list.remove(list.indexOf(tmp));
+				}else answer.add(tmp);
+				
+			}
+			String a= "";
+			Collections.sort(answer);
+			if(answer.size()!=0) {
+				for(int i=0;i<answer.size();i++)a+=answer.get(i);
+			}else a="Good";
+			System.out.printf("#%d %s\n", T,a);
+		}
+
+	}
+
+}

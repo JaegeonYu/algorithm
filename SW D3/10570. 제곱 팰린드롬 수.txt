@@ -1,0 +1,37 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Pro10570 {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		boolean[] isPal = new boolean[32];
+		for(int i=1;i<32;i++) {
+			if(isPal(i)&&isPal((int)Math.pow(i, 2)))isPal[i]=true;
+		}
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+			int A = (int)Math.ceil(Math.sqrt(Integer.parseInt(st.nextToken()))) ;
+			int B = (int)Math.floor(Math.sqrt(Integer.parseInt(st.nextToken()))) ;
+			int count = 0;
+			for(int i=A;i<=B;i++) {
+				if(isPal[i])count++;
+				
+			}
+			System.out.printf("#%d %d\n",T,count);
+		}
+	}
+
+	private static boolean isPal(int num) {
+		String s_num = String.valueOf(num);
+		int cnt = 0;
+		while(cnt<s_num.length()) {
+			if(s_num.charAt(cnt)!=s_num.charAt(s_num.length()-cnt-1))return false;
+			cnt++;
+		}
+		return true;
+	}
+}
