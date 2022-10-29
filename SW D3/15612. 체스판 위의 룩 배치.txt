@@ -1,0 +1,47 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Pro15612 {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		for(int T=1;T<=TC;T++) {
+			char[][] ch = new char[8][8];
+			String answer="yes";
+			int allCount = 0;
+			for(int i=0;i<8;i++) {
+				StringTokenizer st = new StringTokenizer(bf.readLine());
+				String tmp = st.nextToken();
+				for(int j=0;j<8;j++) {
+					ch[i][j]=tmp.charAt(j);
+					if(ch[i][j]=='O')allCount++;
+				}
+			}
+			if(allCount!=8)answer="no";
+			for(int i=0;i<8;i++) {
+				int count =0;
+				for(int j=0;j<8;j++) {
+					if(ch[i][j]=='O')count++;
+				}
+				if(count>=2) {
+					answer="no";
+					break;
+				}
+			}
+			for(int i=0;i<8;i++) {
+				int count =0;
+				for(int j=0;j<8;j++) {
+					if(ch[j][i]=='O')count++;
+				}
+				if(count>=2) {
+					answer="no";
+					break;
+				}
+			}
+			System.out.printf("#%d %s\n", T,answer);
+		}
+	}
+}

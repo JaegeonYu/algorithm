@@ -1,0 +1,31 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Pro13428 {
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+			int N = Integer.parseInt(st.nextToken());
+			String num = String.valueOf(N);
+			
+			int min = Integer.MAX_VALUE;
+			int max = Integer.MIN_VALUE;
+			for(int i=0;i<num.length();i++) {
+				for(int j=i;j<num.length();j++) {
+					char[] num_arr = num.toCharArray();
+					char temp = num_arr[i];
+					num_arr[i]=num_arr[j];
+					num_arr[j]=temp;
+					if(num_arr[0]=='0'&& num_arr.length>1)continue;
+					max = Math.max(max, Integer.parseInt(new String(num_arr)));
+					min = Math.min(min, Integer.parseInt(new String(num_arr)));
+				}
+			}
+			System.out.printf("#%d %d %d\n", T,min,max);
+		}
+	}
+}
