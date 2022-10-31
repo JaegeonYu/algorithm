@@ -1,0 +1,22 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Pro9997 {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine().trim());
+			int N = Integer.parseInt(st.nextToken())*2;
+			int hour = N/60;
+			int minute = N%60;
+			
+			System.out.printf("#%d %d %d\n",T,hour,minute);
+		}
+
+	}
+
+}

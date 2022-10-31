@@ -1,0 +1,32 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Pro9940 {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(bf.readLine().trim());
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+			int N = Integer.parseInt(st.nextToken());
+			int[] check = new int[N+1];
+			st = new StringTokenizer(bf.readLine());
+			while(st.hasMoreTokens()) {
+				int now = Integer.parseInt(st.nextToken());
+				check[now]++;
+			
+			}
+			String answer="Yes";
+			for(int i=1;i<=N;i++) {
+				if(check[i]!=1) {
+					answer="No";
+				}
+			}
+			
+			System.out.printf("#%d %s\n",T,answer);
+		}
+	}
+
+}
