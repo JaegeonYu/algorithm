@@ -1,0 +1,30 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Pro9700 {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		// TODO Auto-generated method stub
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int TC = Integer.parseInt(bf.readLine());
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+			double p = Double.parseDouble(st.nextToken());
+			double q = Double.parseDouble(st.nextToken());
+			double s1 = (1.0-p)*q;
+			double s2 = p*(1.0-q)*q;
+			StringBuilder sb = new StringBuilder("#"+T+" ");
+			if(s1<s2)sb.append("YES\n");
+			else sb.append("NO\n");
+			bw.write(sb.toString());
+		}
+		bw.flush();
+		bw.close();
+	}
+
+}
