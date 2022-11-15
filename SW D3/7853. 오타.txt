@@ -1,0 +1,39 @@
+package first;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Pro7853 {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int TC = Integer.parseInt(br.readLine());
+		for(int T=1;T<=TC;T++) {
+			String tmp = br.readLine();
+			char[] ch = tmp.toCharArray();
+			long answer =1;
+			for(int i=0;i<ch.length;i++) {
+				if(i==0) {
+					if(ch[i]!=ch[i+1])answer*=2;
+				}else if(i==ch.length-1){
+					if(ch[i]!=ch[i-1])answer*=2;
+				}else {
+					int count = 1;
+					if(ch[i]!=ch[i-1])count++;
+					if(ch[i]!=ch[i+1]&&ch[i+1]!=ch[i-1])count++;
+					answer*=count;
+				}
+				answer%=1000000007;
+			}
+
+			bw.write("#"+T+" "+answer+"\n");
+		}
+		bw.flush();
+		bw.close();
+	}
+
+}

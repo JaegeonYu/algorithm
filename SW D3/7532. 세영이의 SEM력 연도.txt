@@ -1,0 +1,31 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Pro7532 {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int TC = Integer.parseInt(br.readLine());
+		for(int T=1;T<=TC;T++) {
+			
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			int x_s = Integer.parseInt(st.nextToken())-1;
+			int x_e = Integer.parseInt(st.nextToken())-1;
+			int x_m = Integer.parseInt(st.nextToken())-1;
+			int answer = x_e;
+			while(true) {
+				if(answer%365==x_s&&answer%29==x_m)break;
+				answer+=24;
+			}
+			bw.write("#"+T+" "+(answer+1)+"\n");
+		}
+		bw.flush();
+		bw.close();
+	}
+
+}
