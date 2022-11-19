@@ -1,0 +1,51 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Pro6853 {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int TC = Integer.parseInt(br.readLine());
+		for(int T=1;T<=TC;T++) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			int x1 = Integer.parseInt(st.nextToken());
+			int y1 = Integer.parseInt(st.nextToken());
+			int x2 = Integer.parseInt(st.nextToken());
+			int y2 = Integer.parseInt(st.nextToken());
+			int[] arr =new int[3];
+			int n = Integer.parseInt(br.readLine());
+			for(int i=0;i<n;i++) {
+				st = new StringTokenizer(br.readLine());
+				int tmpx = Integer.parseInt(st.nextToken());
+				int tmpy = Integer.parseInt(st.nextToken());
+				if(checkIn(x1,y1,x2,y2,tmpx,tmpy)) {
+					arr[0]++;
+				}else if(checkOn(x1,y1,x2,y2,tmpx,tmpy)) {
+					arr[1]++;
+				}else arr[2]++;
+			}
+			bw.write("#"+T+" "+arr[0]+" "+arr[1]+" "+arr[2]+"\n");
+		}
+		bw.flush();
+		bw.close();
+	}
+	static boolean checkIn(int x1, int y1, int x2, int y2, int tmpx,int tmpy) {
+		if(tmpx>x1 && tmpx<x2) {
+			if(tmpy>y1 && tmpy<y2) {
+				return true;
+			}
+		}
+		return false;
+	}
+	static boolean checkOn(int x1, int y1, int x2, int y2, int tmpx,int tmpy) {
+		if(tmpx>=x1 && tmpx<=x2) {	
+			if(tmpy>=y1 && tmpy<=y2) return true;
+		}
+		return false;
+	}
+}
