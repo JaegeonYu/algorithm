@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int MAX = 200000;
+int n,k, vis[MAX+4], dp[MAX+4];
+vector<int> v;
+int main(){
+	cin >> n >> k;
+	 vis[n]=1;
+	 dp[n]=1;
+	queue<int> q;
+	q.push(n);
+	while(q.size()){
+		int now = q.front();q.pop();
+		if(now == k)break;
+		for(int next : {now-1, now+1, now*2}){
+			if(0 <= next && next <= MAX){
+				if(!vis[next]){
+					vis[next]=vis[now]+1;
+					dp[next]=now;
+					q.push(next);
+				}
+			}
+		}
+	}
+	for(int i=k;i!=n;i=dp[i]){
+		v.push_back(i);
+	}
+	v.push_back(n);
+	reverse(v.begin(), v.end());
+	cout << vis[k] -1<<"\n";
+	for(int i : v)cout << i << " ";
+	return 0;
+}
