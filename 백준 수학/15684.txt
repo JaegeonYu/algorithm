@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int INF = 987654231;
+int n, m,h, vis[34][34], x, y, ret = INF;
+bool check(){
+	for(int i=1;i<=h;i++){
+		int start = i;
+		for(int j=1;j<=n;j++){
+			if(vis[j][start])start++;
+			else if(vis[j][start-1])start--;
+		}
+		if(start != i)return false;
+	}
+	return true;
+}
+void go(int here, int cnt){
+	if(cnt > 3)return ;
+	if(cnt >= ret)return;
+	if(check()){
+		ret = min(ret, cnt);
+	}
+	for(int i=here;i<=h;i++){
+		for(int j=1;j<=n;j++){
+			if(vis[i][j]||vis[i][j-1]||vis[i][j+1])continue;
+			vis[i][j]=1;
+			go(i, cnt+1);
+			vis[i][j]=0;
+		}
+	}
+}
+int main(){
+	cin >> n >> m >> h;
+	for(int i=0;i<m;i++){
+		cin >> x >> y;
+		vis[x][y]=1;
+	}
+	go(1,0);
+	cout << ((ret==INF) ? -1 : ret) <<"\n";
+	return 0;
+}
