@@ -1,0 +1,15 @@
+#include<bits/stdc++.h>
+using namespace std;
+string s, bomb, ret;
+int main(){
+	cin >> s >> bomb;
+	for(char tmp : s){
+		ret += tmp;
+		if(ret.size()>=bomb.size() && ret.substr(ret.size()-bomb.size(), bomb.size())==bomb){
+			ret.erase(ret.size()-bomb.size(), bomb.size());
+		}
+	}
+	if(ret.size()==0)cout << "FRULA\n";
+	else cout << ret <<"\n";
+	return 0;
+}
