@@ -1,0 +1,44 @@
+public class Main {
+	static int n, arr[], p = 0;
+	static boolean che[];
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(bf.readLine());
+		// 
+		n = Integer.parseInt(st.nextToken());
+		arr = new int[n];
+		che = new boolean[n*2];
+		// n까지 소수 구하기
+		for(int i=2;i<=n;i++) {
+			if(che[i])continue;
+			for(int j=2*i;j<=n;j+=i) {
+				che[j]=true;
+			}
+		}
+		for(int i=2;i<=n;i++) {
+			if(!che[i])arr[p++]=i;
+		}
+
+		int le = 0, ri = 0;
+		int sum = 0, ret =0;
+		while(true) {
+			if(sum >=n)sum-=arr[le++];
+			else if(ri == p)break;
+			else sum += arr[ri++];
+			if(sum==n)ret++;
+		}
+		
+		System.out.println(ret);
+		
+	}
+	private static boolean isPrime(int now) {
+		// TODO Auto-generated method stub
+		
+		for(int i=2;i<=Math.sqrt(now);i++) {
+			if(now%i==0)return false;
+		}
+		return true;
+	}
+
+}
