@@ -1,0 +1,85 @@
+package boj;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Boj15662_1 {
+	static int t, map[][], k, ret=0;
+	
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		// TODO Auto-generated method stub
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		t = Integer.parseInt(bf.readLine());
+		map = new int[t][8];
+		for(int i=0;i<t;i++) {
+			String tmp = bf.readLine();
+			for(int j=0;j<tmp.length();j++) {
+				map[i][j]=tmp.charAt(j)-'0';
+			}
+		}
+		
+		k = Integer.parseInt(bf.readLine());
+		for(int i=0;i<k;i++) {
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+			int num = Integer.parseInt(st.nextToken()) - 1;
+			boolean dir = Integer.parseInt(st.nextToken()) == 1? true: false;
+			int l = findL(num);
+			int r = findR(num);
+			// 돌리기
+			int cnt = 0;
+			for(int j=num;j>=l;j--) {
+				rotate(j, cnt % 2 == 0? dir : !dir);
+				cnt++;
+			}
+			cnt = 1;
+			for(int j=num+1;j<=r;j++) {
+				rotate(j, cnt % 2 == 0? dir : !dir);
+				cnt++;
+			}
+		}
+		for(int i=0;i<t;i++) {
+			if(map[i][0]==1)ret++;
+		}
+		System.out.println(ret);
+	}
+
+	private static void rotate(int num, boolean dir) {
+		// TODO Auto-generated method stub
+		if(dir) {
+			int tmp = map[num][7];
+			for(int i=7;i>=1;i--) {
+				map[num][i]=map[num][i-1];
+			}
+			map[num][0]=tmp;
+			
+		}else {
+			int tmp = map[num][0];
+			for(int i=0;i<7;i++) {
+				map[num][i]=map[num][i+1];
+			}
+			map[num][7]=tmp;
+		}
+	}
+
+	private static int findR(int num) {
+		for(int i=num;i<t-1;i++) {
+			if(map[i][2]==map[i+1][6]) {
+				return i;
+			}
+		}
+		return t-1;
+	}
+
+	private static int findL(int num) {
+		for(int i=num;i>0;i--) {
+			if(map[i][6]==map[i-1][2]) {
+				return i;
+			}
+		}
+		
+		return 0;
+	}
+
+}
