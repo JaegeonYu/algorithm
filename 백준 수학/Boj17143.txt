@@ -1,0 +1,138 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class Boj17143 {
+	static int r, c, m, ret;
+	static int[][] vis, shark;
+	static Shark[] a;
+	static int dx[]= {0,0,1,-1};
+	static int dy[]= {-1,1,0,0};
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(bf.readLine());
+		
+		r = Integer.parseInt(st.nextToken());
+		c = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
+		a = new Shark[m+1];
+		vis = new int[r][c];
+		shark = new int[r][c];
+		
+		for(int i=1;i<=m;i++) {
+			st = new StringTokenizer(bf.readLine());
+			int y = Integer.parseInt(st.nextToken())-1;
+			int x = Integer.parseInt(st.nextToken())-1;
+			int speed = Integer.parseInt(st.nextToken());
+			int dir = Integer.parseInt(st.nextToken())-1;
+			int size = Integer.parseInt(st.nextToken());
+			shark[y][x]= i;
+			a[i] = new Shark(y,x,dir, speed, size);
+			
+		}
+		
+		for(int i=0;i<c;i++) {// 사람 이동
+			
+			// 땅과 제일 가까운 상어 잡기
+			for(int j=0;j<r;j++) {
+				if(shark[j][i]>0) {
+					a[shark[j][i]].death = true;
+					ret += a[shark[j][i]].size;
+					shark[j][i]=0;
+					break;
+				}
+			}
+			for(int j=0;j<r;j++) {
+				Arrays.fill(vis[j], 0);
+			}
+			for(int j=1;j<=m;j++) {
+				if(a[j].death)continue;
+				
+				int y = a[j].y;
+				int x = a[j].x;
+				int size = a[j].size;
+				int speed = a[j].speed;
+				int ny, nx;
+				while(true) {
+					ny = y+speed*dy[a[j].dir];
+					nx = x+speed*dx[a[j].dir];
+					if(nx < c && ny <r && ny >=0 && nx >=0)break;
+					if(a[j].dir<=1) {
+						if(ny <0) {
+							speed -= y;
+							y =0;
+						}else {
+							speed -= r-1-y;
+							y = r-1;
+						}
+					}else {
+						if(nx <0) {
+							speed -= x;
+							x = 0;
+						}else {
+							speed -= c-1-x;
+							x = c-1;
+						}
+					}
+					a[j].changeDir();
+				}
+				
+				if(vis[ny][nx]>0) {
+					if(a[vis[ny][nx]].size < a[j].size) {
+						a[vis[ny][nx]].death = true;
+						vis[ny][nx] = j;
+					}else a[j].death = true;
+				}else vis[ny][nx] = j;
+				
+				a[j].y=ny;
+				a[j].x=nx;
+				
+			}
+			shark = copy(vis);
+		
+		}
+		System.out.println(ret);
+				
+		
+	}
+	
+	private static int[][] copy(int[][] vis2) {
+		int [][] arr=  new int[r][c];
+		for(int i=0;i<r;i++) {
+			for(int j=0;j<c;j++) {
+				arr[i][j]=vis2[i][j];
+			}
+		}
+		return arr;
+	}
+
+	static class Shark{
+		int y;
+		int x;
+		int dir;
+		int speed;
+		int size;
+		boolean death = false;
+		
+		public Shark(int y, int x, int dir, int speed, int size) {
+			this.y=y;
+			this.x=x;
+			this.dir = dir;
+			this.speed = speed;
+			this.size = size;
+		}
+		
+		public void changeDir() {
+			if(dir==0)dir=1;
+			else if(dir==1)dir=0;
+			else if(dir==2)dir=3;
+			else dir=2;
+		}
+	}
+			
+}
