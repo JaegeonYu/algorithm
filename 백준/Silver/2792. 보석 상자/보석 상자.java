@@ -1,41 +1,49 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int n, m, a[];
+	static int N, M, a[], max, ret = Integer.MAX_VALUE;
 	public static void main(String[] args) throws IOException {
-		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(bf.readLine());
-		n = Integer.parseInt(st.nextToken());
-		m = Integer.parseInt(st.nextToken());
-		a = new int[m];
-		long lo = 1, hi = 0, mid;
-		for(int i=0;i<m;i++) {
-			a[i] = Integer.parseInt(bf.readLine());
-			hi = Math.max(hi, a[i]);
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+		
+		a = new int[M];
+		for(int i=0;i<M;i++) {
+			a[i] = Integer.parseInt(br.readLine());
+			max = Math.max(a[i], max);
 		}
-		long ret = Long.MAX_VALUE ;
-		while(lo<=hi) {
-			mid = (lo+hi)/2;
+		
+		int le = 1;
+		int ri = max;
+		while(le <= ri) {
+			int mid = (le+ri)/2;
 			if(check(mid)) {
 				ret = Math.min(ret, mid);
-				hi = mid -1;
-			}else lo = mid+1;
+				ri = mid -1;
+			}else {
+				le = mid + 1;
+			}
 		}
 		
 		System.out.println(ret);
 		
 	}
-	private static boolean check(long mid) {
-		long num = 0;
-		for(int i=0;i<m;i++) {
-			num += a[i]/mid;
-			if(a[i] % mid >0)num++;
+	private static boolean check(int mid) {
+		int cnt = 0;
+		for(int i=0;i<M;i++) {
+			int now = a[i];
+			int div = now / mid;
+			int mod = now % mid;
+			cnt += div;
+			if(mod > 0) {
+				cnt++;
+			}
 		}
-		return n >= num;
+		return N >= cnt;
 	}
 
 }
