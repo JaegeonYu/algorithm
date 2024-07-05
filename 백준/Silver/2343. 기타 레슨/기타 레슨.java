@@ -4,49 +4,43 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int N, M, a[], ret = Integer.MAX_VALUE, max;
+	static int N, M, arr[];
+	static long ret = Long.MAX_VALUE-1;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
 		StringTokenizer st = new StringTokenizer(br.readLine());
+		
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
-		a = new int[N];
+		arr = new int[N];
 		st = new StringTokenizer(br.readLine());
-		for(int i=0;i<N;i++) {
-			a[i] = Integer.parseInt(st.nextToken());
-			max += a[i];
-		}
-		
-		int le = 1;
-		int ri = max;
+		for(int i=0;i<N;i++)arr[i] = Integer.parseInt(st.nextToken());
+		long le = 1;
+		long ri = Long.MAX_VALUE-1;
 		while(le <= ri) {
-			int mid = (le+ri)/2;
+			long mid = (le+ri)/2;
 			if(check(mid)) {
+				ret= mid;
+				
 				ri = mid -1;
-				ret = mid;
-			}else le = mid +1;
+			}else le = mid + 1;
 		}
-		
 		System.out.println(ret);
-		
 	}
-	private static boolean check(int mid) {
-		for(int i=0;i<N;i++) {
-			if(a[i] > mid)return false;
-		}
+	private static boolean check(long mid) {
 		int cnt = 1;
-		int cd = mid;
+		int tmp = 0;
 		for(int i=0;i<N;i++) {
-			
-			if(cd - a[i]<0) {
-				cd = mid;
+			if(mid < arr[i])return false;
+			if(tmp + arr[i] > mid) {
 				cnt++;
+				tmp = arr[i];
+			}else {
+				tmp += arr[i];
 			}
-			cd -= a[i];
 		}
-		
-		return M >= cnt;
+
+		return cnt <= M;
 	}
 
 }
