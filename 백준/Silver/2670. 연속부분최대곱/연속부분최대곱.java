@@ -1,27 +1,30 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-	static int n;
-	static double a[], ret=0;
+	static int N;
+	static double a[];
 	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		n = Integer.parseInt(bf.readLine());
-		a = new double[n];
-		for(int i=0;i<n;i++) {
-			a[i] = Double.parseDouble(bf.readLine());
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(br.readLine());
+		a = new double[N];
+		
+		
+		for(int i=0;i<N;i++) {
+			a[i] = Double.parseDouble(br.readLine());
 		}
 		double b = a[0];
-		for(int i=1;i<n;i++) {
-			if(a[i] > b * a[i]) b = a[i];
-			else b *= a[i];
-			ret = Math.max(b, ret);
-		}
 		
+		double ret = 0;
+		for(int i=1;i<N;i++) {
+			if(a[i] * b > a[i])b *= a[i];
+			else b = a[i];
+			ret = Math.max(ret, b);
+			
+		}
 		System.out.printf("%.3f", ret);
 	}
-
-
 
 }
