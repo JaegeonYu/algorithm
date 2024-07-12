@@ -1,46 +1,38 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int n, lis[]=new int[504];
-	static List<int[]> a = new ArrayList<>();
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		n = Integer.parseInt(bf.readLine());
-		StringTokenizer st;
-		for(int i=0;i<n;i++) {
-			st = new StringTokenizer(bf.readLine());
-			int x = Integer.parseInt(st.nextToken());
-			int y = Integer.parseInt(st.nextToken());
-			a.add(new int[] {x,y});
-		}
-		Collections.sort(a, (o1, o2)->{
-			if(o1[0]==o2[0])return o1[1]-o2[1];
-			else return o1[0]-o2[0];
-		});
-		int ret = 0;
-		for(int i=0;i<a.size();i++) {
-			ret = Math.max(recur(i), ret);
-			
+	static int N, a[][], lis[] = new int[504];
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(br.readLine());
+		a = new int[N][2];
+		for(int i=0;i<N;i++) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			a[i][0] = Integer.parseInt(st.nextToken());
+			a[i][1] = Integer.parseInt(st.nextToken());
 		}
 		
-		System.out.println(n - ret);
-	}
-	private static int recur(int N) {
-		if(lis[N] == 0) {
-			lis[N]=1;
-			for(int i= N+1;i<a.size();i++) {
-				if(a.get(N)[1] < a.get(i)[1]) {
-					lis[N] = Math.max(lis[N], recur(i)+1);
+		Arrays.sort(a, (o1, o2)->{
+			if(o1[0] == o2[0])return Integer.compare(o1[1], o2[1]);
+			else return Integer.compare(o1[0], o2[0]);
+		});
+		int max = 0;
+		
+		for(int i=0;i<N;i++) {
+			lis[i] = 1;
+			for(int j=0;j<i;j++) {
+				if(a[i][1] > a[j][1]) {
+					lis[i] = Math.max(lis[i], lis[j]+1);
 				}
 			}
+			max = Math.max(max, lis[i]);
 		}
-		return lis[N];
+		System.out.println(N - max);
 	}
+
 
 }
