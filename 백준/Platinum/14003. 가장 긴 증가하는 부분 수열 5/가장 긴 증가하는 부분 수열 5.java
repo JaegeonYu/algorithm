@@ -8,16 +8,16 @@ import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int n, a[], lis[];
+	static int N, a[];
+	static int[] lis;
 	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		n = Integer.parseInt(bf.readLine());
-		a = new int[n];
-		lis = new int[n];
-		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(br.readLine());
+		a = new int[N];
+		lis = new int[N];
 		List<Integer> bs = new ArrayList<>();
-		StringTokenizer st = new StringTokenizer(bf.readLine());
-		for(int i=0;i<n;i++) {
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		for(int i=0;i<N;i++) {
 			a[i] = Integer.parseInt(st.nextToken());
 			if(bs.isEmpty() || bs.get(bs.size()-1) < a[i]) {
 				lis[i] = bs.size();
@@ -26,23 +26,21 @@ public class Main {
 			}
 			
 			int idx = Collections.binarySearch(bs, a[i]);
-			idx = idx >=0 ? idx : -idx-1;
+			idx = idx < 0 ? -idx-1 : idx;
 			lis[i] = idx;
 			bs.set(idx, a[i]);
 		}
-		int idx  = bs.size()-1;
-		Stack<Integer> stack = new Stack<>();
-		for(int i=n-1;i>=0;i--) {
-			if(lis[i]==idx) {
+		
+		int idx = bs.size()-1;	
+		Stack<Integer> stk = new Stack<>();
+		for(int i=N-1;i>=0;i--) {
+			if(lis[i] == idx) {
 				idx--;
-				stack.push(a[i]);
+				stk.push(a[i]);
 			}
 		}
 		System.out.println(bs.size());
-		while(!stack.isEmpty()) {
-			System.out.print(stack.pop()+" ");
-		}
-		
+		while(!stk.isEmpty())System.out.print(stk.pop()+" ");
 	}
 
 }
