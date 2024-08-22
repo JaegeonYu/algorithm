@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
 public class Main {
 	static int N;
@@ -11,20 +10,19 @@ public class Main {
 		N = Integer.parseInt(br.readLine());
 		a = new double[N];
 		
+		for(int i=0;i<N;i++)a[i] = Double.parseDouble(br.readLine());
 		
-		for(int i=0;i<N;i++) {
-			a[i] = Double.parseDouble(br.readLine());
-		}
-		double b = a[0];
-		
+		double temp = a[0];
 		double ret = 0;
 		for(int i=1;i<N;i++) {
-			if(a[i] * b > a[i])b *= a[i];
-			else b = a[i];
-			ret = Math.max(ret, b);
-			
+			if(temp * a[i] > a[i]) {
+				temp *= a[i];
+			}else temp = a[i];
+			ret = Math.max(ret, temp);
 		}
+		
 		System.out.printf("%.3f", ret);
+
 	}
 
 }
