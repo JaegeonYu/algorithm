@@ -7,25 +7,29 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int n, a[];
+	static int N, a[];
 	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		n = Integer.parseInt(bf.readLine());
-		a = new int[n];
-		StringTokenizer st = new StringTokenizer(bf.readLine());
-		List<Integer> bs = new ArrayList<>();
-		for(int i=0;i<n;i++) {
-			a[i] = Integer.parseInt(st.nextToken());
-			if(bs.isEmpty() || bs.get(bs.size()-1) < a[i]) {
-				bs.add(a[i]);
-			}else {
-				int idx = Collections.binarySearch(bs, a[i]);
-				idx = idx >=0? idx : -idx-1;
-				bs.set(idx, a[i]);
-			}
-		}
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(br.readLine());
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		a = new int[N];
+		for(int i=0;i<N;i++)a[i] = Integer.parseInt(st.nextToken());
 		
-		System.out.println(bs.size());
+		List<Integer> lis = new ArrayList<>();
+		for(int i=0;i<N;i++) {
+			int idx = Collections.binarySearch(lis, a[i]);
+			if(lis.isEmpty() || lis.get(lis.size()-1) < a[i]) {
+				lis.add(a[i]);
+				continue;
+			}
+			idx = idx < 0 ? -idx-1 : idx;
+			lis.set(idx, a[i]);
+			
+			
+	
+		}
+		System.out.println(lis.size());
+
 	}
 
 }
