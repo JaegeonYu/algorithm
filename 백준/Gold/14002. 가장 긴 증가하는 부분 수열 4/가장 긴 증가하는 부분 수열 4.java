@@ -7,38 +7,43 @@ import java.util.List;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
-public class Main{
-	static int n, a[], lis[];
+public class Main {
+	static int N, a[], b[];
 	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		n = Integer.parseInt(bf.readLine());
-		a = new int[n];
-		lis = new int[n];
-		StringTokenizer st = new StringTokenizer(bf.readLine());
-		List<Integer> bs = new ArrayList<>();
-		for(int i=0;i<n;i++) {
-			a[i] = Integer.parseInt(st.nextToken());
-			if(bs.isEmpty() || bs.get(bs.size()-1) < a[i]) {
-				lis[i]=bs.size();
-				bs.add(a[i]);
-			}else {
-				int idx = Collections.binarySearch(bs, a[i]);
-				idx = idx >=0? idx : -idx-1;
-				lis[i]=idx;
-				bs.set(idx, a[i]);
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(br.readLine());
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		a = new int[N];
+		b = new int[N];
+		for(int i=0;i<N;i++)a[i] = Integer.parseInt(st.nextToken());
+		
+		List<Integer> lis = new ArrayList<>();
+		for(int i=0;i<N;i++) {
+			int idx = Collections.binarySearch(lis, a[i]);
+			if(lis.isEmpty() || lis.get(lis.size()-1) < a[i]) {
+				b[i] = lis.size();
+				lis.add(a[i]);
+				
+				continue;
 			}
+			idx = idx < 0 ? -idx-1 : idx;
+			lis.set(idx, a[i]);
+			b[i] = idx;
+			
+		
 		}
-		int idx = bs.size()-1;
-		Stack<Integer> stack = new Stack<>();
-		for(int i=n-1;i>=0;i--) {
-			if(lis[i]==idx) {
+		System.out.println(lis.size());
+		
+		Stack<Integer> stk = new Stack<>();
+		int idx = lis.size()-1;
+		for(int i=N-1;i>=0;i--) {
+			if(b[i] == idx) {
+				stk.push(a[i]);
 				idx--;
-				stack.push(a[i]);
 			}
 		}
-		System.out.println(bs.size());
-		while(!stack.isEmpty()) {
-			System.out.print(stack.pop() +" ");
+		while(!stk.isEmpty()) {
+			System.out.print(stk.pop()+" ");
 		}
 	}
 
